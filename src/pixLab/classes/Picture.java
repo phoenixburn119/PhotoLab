@@ -146,6 +146,71 @@ public class Picture extends SimplePicture
     } 
   }
   
+  public void randomChange()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for(Pixel[] row : pixels)
+	  {
+		  for(Pixel current : row)
+		  {
+			  int randomRedScale = (int)(Math.random() * 50);
+			  int randomGreenScale = (int)(Math.random() * 100);
+			  int randomBlueScale = (int)(Math.random() * 10);
+			  int plusOrMinus = (int)(Math.random() * 2);
+			  if(plusOrMinus > 0)
+			  {
+				  current.setRed((current.getRed() + randomRedScale) % 256);
+				  current.setRed((current.getRed() + randomGreenScale) % 256);
+				  current.setRed((current.getRed() + randomBlueScale) % 256);
+			  }
+			  else
+			  {
+				  current.setRed((current.getRed() - randomRedScale) % 256);
+				  current.setRed((current.getRed() - randomGreenScale) % 256);
+				  current.setRed((current.getRed() - randomBlueScale) % 256);
+			  }
+		  }
+	  }
+	  
+  }
+  
+  public void randomColor()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for(Pixel[] row : pixels)
+	  {
+		  for(Pixel current : row)
+		  {
+			  int randomRed = (int)(Math.random() * 256);
+			  int randomGreen = (int)(Math.random() * 256);
+			  int randomBlue = (int)(Math.random() * 256);
+			  
+			  current.setRed(randomRed);
+			  current.setGreen(randomGreen);
+			  current.setBlue(randomBlue);
+		  }
+	  }
+	  
+  }
+  
+  public void mirrorVerticalRightToLefft()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel leftPixel = null;
+	  Pixel rightPixel = null;
+	  int width = pixels[0].length;
+	  
+	  for(int row = 0; row < pixels.length; row++)
+	  {
+		  for(int col= pixels[0].length; col > width/2; col--)
+		  {
+			  rightPixel = pixels[row][col];
+			  leftPixel = pixels[row][(width / 2) - (col - width / 2)];
+			  leftPixel.setColor(rightPixel.getColor());
+		  }
+	  }
+  }
+  
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
@@ -251,11 +316,12 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("butterfly1.jpg");
+    Picture beach = new Picture("ColorLandscape.jpg");
     beach.explore();
-    beach.zeroRed();
-    beach.zeroBlue();
-    beach.zeroGreen();
+    //beach.zeroRed();
+    //beach.zeroBlue();
+    //beach.zeroGreen();
+    beach.randomChange();
     beach.explore();
   }
   
