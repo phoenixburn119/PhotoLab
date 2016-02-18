@@ -185,10 +185,9 @@ public class Picture extends SimplePicture
 	    Pixel topPixel = null;
 	    Pixel bottomPixel = null;
 	    int height = pixels.length;
-	    int length = pixels[0].length;
-	    for (int col = 0; col < length; col++)
+	    for (int row = pixels.length - 1; row > height / 2; row--)
 	    {
-	      for (int row = 0; row < height / 2; row++)
+	      for (int col = 0; col < pixels[0].length - 1; col++)
 	      {
 	        topPixel = pixels[row][col];
 	        bottomPixel = pixels[height - 1 - row][col];
@@ -279,8 +278,7 @@ public class Picture extends SimplePicture
       {
         
         leftPixel = pixels[row][col];      
-        rightPixel = pixels[row]                       
-                         [mirrorPoint - col + mirrorPoint];
+        rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
         rightPixel.setColor(leftPixel.getColor());
       }
     }
@@ -291,13 +289,13 @@ public class Picture extends SimplePicture
 	    Pixel[][] pixels = this.getPixels2D();
 	    Pixel topPixel = null;
 	    Pixel bottomPixel = null;
-	    int mirrorPoint = 276;
-	    for (int col = 150; col < pixels[0].length; col++)
+	    int mirrorPoint = 190;
+	    for (int row = 170; row < mirrorPoint; row++)
 	    {
-	      for (int row = 162; row < mirrorPoint; row++)
+	      for (int col = 0; col < pixels[0].length; col++)
 	      {
 	        topPixel = pixels[row][col];
-	        bottomPixel = pixels[mirrorPoint][mirrorPoint];
+	        bottomPixel = pixels[mirrorPoint - row + mirrorPoint][col];
 	        bottomPixel.setColor(topPixel.getColor());
 	      }
 	    }  
@@ -392,9 +390,10 @@ public class Picture extends SimplePicture
     //beach.randomChange();
     //beach.completeBlue();
     //beach.completeRed();
-    //beach.completeGreen();
-    //beach.mirrorHorizontal();
-    //beach.mirrorHorizontalBottomToTop();
+    beach.completeGreen();
+    beach.mirrorVertical();
+    beach.mirrorHorizontal();
+    beach.mirrorHorizontalBottomToTop();
     beach.mirrorArms();
     beach.explore();
   }
